@@ -1,21 +1,31 @@
 <template>
-  <div class="bookslist">
+  <div class="bookslist" >
     <div class="title">
       <h1>Books list</h1>
     </div>
-    <table>
-      <tr class="table-title">
-        <th>Title</th>
-        <th>Author</th>
-        <th>Pages</th>
-      </tr>
-      <tr class="table-content" v-for="item in list" v-bind:key="item.id">
-        <td>{{ item.title }}</td>
-        <td>{{ item.author }}</td>
-
-        <td>{{ item.pages }}</td>
-      </tr>
-    </table>
+    <div class="cardContainer">
+    <vs-card class="card" v-for="item in list" v-bind:key="item.id">
+      <template #title>
+        <h3>{{item.title}}</h3>
+      </template>
+      <template #img>
+        <img style="background-size:cover" :src="item.thumbnailUrl" alt="image" @error="setAltImage">
+      </template>
+      <template #text>
+        <p style="font-size:14px;font-weight:400;">
+          {{item.shortDescription.slice(0,100).concat("...")}}
+        </p>
+      </template>
+      <template #interactions>
+        <vs-button danger icon @click="handleFav">
+          <i class='bx bx-heart'></i>
+        </vs-button>
+        <vs-button style="background:red;color:white" class="btn-chat" shadow primary>
+          Delete
+        </vs-button>
+      </template>
+    </vs-card>
+</div>
   </div>
 </template>
 
@@ -29,7 +39,8 @@ export default {
   name: "BookList",
   data() {
     return {
-      list: undefined,
+      list: [],
+      fav:true
     };
   },
   methods: {
@@ -37,17 +48,22 @@ export default {
       e.target.src =
         "https://cdn.pixabay.com/photo/2016/03/31/18/36/cinema-1294496__340.png";
     },
+   handleFav:()=>{
+      this.list.data.push(this.fav)
+    },
   },
   mounted() {
-    Vue.axios.get("https://api.npoint.io/b4f2695b6903cc6ae67d").then((res) => {
-      this.list = res.data.response.books;
-      console.log(res.data.response.books);
+    Vue.axios.get("https://raw.githubusercontent.com/bvaughn/infinite-list-reflow-examples/master/books.json").then((res) => {
+      this.list = res.data;
+      console.log(res);
     });
   },
 };
 </script>
 
 <style scoped>
+
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -63,4 +79,20 @@ table {
 .table-title th {
   padding: 1em;
 }
+
+.cardContainer{
+ display: grid;
+  grid-template-columns:repeat(3,1fr);
+  justify-content: center;
+  align-items:center;
+  margin-left:150px;
+  margin-top:50px;
+  grid-gap:1rem;
+}
+
+.card{
+  margin:30px;
+}
+
+
 </style>

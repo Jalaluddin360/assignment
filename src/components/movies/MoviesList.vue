@@ -8,6 +8,9 @@
         <router-link class="route-text" to="/addMovie">Add Movie</router-link>
       </button>
     </div>
+    <div class="searchInput">
+      <input type="text" v-model="search">
+    </div>
     <!-- <AddMovie v-bind:list="list" /> -->
     <div>
       <table>
@@ -16,7 +19,7 @@
           <th>Title</th>
           <th>Rating</th>
         </tr>
-        <tr class="table-content" v-for="item in list" v-bind:key="item.id">
+        <tr class="table-content" v-for="item in getfilteredList" v-bind:key="item.id">
           <td>
             <img
               id="image"
@@ -52,9 +55,8 @@ export default {
   data() {
     return {
       users: "hello",
-      list: undefined,
-      defaultImg:
-        "https://cdn.pixabay.com/photo/2016/03/31/18/36/cinema-1294496__340.png",
+      list: [],
+      search:"",
     };
   },
   methods: {
@@ -73,6 +75,12 @@ export default {
         console.log(res.data);
       });
   },
+  computed:{
+    getfilteredList(){
+      console.log(this.list.filter(item=>item.title.includes(this.search)))
+      return this.list.filter(item=>item.title.toLowerCase().includes(this.search.toLowerCase()));
+    }
+  }
 };
 </script>
 
