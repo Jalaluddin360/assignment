@@ -14,13 +14,12 @@
     <div class="checkBoxContainer">
       <h3 class="genre">Genre</h3>
         <label for="drama">Drama</label>
-     <input id="drama" type="checkbox" value="drama" v-model="drama" >
-      <label for="romance">Romance</label>
-      <input id="romance" type="checkbox" value="romance" v-model="romance">
-      <label for="thriller">Thriller</label>
-      <input id="thriller" type="checkbox" value="thriller" v-model="thriller"/>
+     <input id="drama" type="checkbox" value="Drama" v-model="selectedCategory" >
+      <label for="comedy">Comedy</label>
+      <input id="comedy" type="checkbox" value="Comedy" v-model="selectedCategory">
+      <label for="action">Action</label>
+      <input id="action" type="checkbox" value="Action" v-model="selectedCategory"/>
     </div>
-    {{JSON.stringify(getComedy)}}
     <!-- <AddMovie v-bind:list="list" /> -->
     <div>
       <table>
@@ -29,7 +28,7 @@
           <th>Title</th>
           <th>Rating</th>
         </tr>
-        <tr class="table-content" v-for="item in list" v-bind:key="item.id">
+        <tr class="table-content" v-for="item in getFilteredCategory" v-bind:key="item.id">
           <td>
             <img
               id="image"
@@ -67,9 +66,7 @@ export default {
       users: "hello",
       list: [],
       search:"",
-      drama:false,
-      romance:false,
-      thriller:false
+     selectedCategory:[]
     };
   },
   methods: {
@@ -93,8 +90,8 @@ export default {
       console.log(this.list.filter(item=>item.title.includes(this.search)))
       return this.list.filter(item=>item.title.toLowerCase().includes(this.search.toLowerCase()));
     },
-    getComedy(){
-      return console.log(this.list.filter(item=>item.genres.includes(this.comedy)))
+    getFilteredCategory(){
+      return this.list.filter(item=>item.genres[0].includes(this.selectedCategory))
     }
   },
   watch:{
