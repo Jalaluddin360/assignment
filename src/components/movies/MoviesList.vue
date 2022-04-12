@@ -1,7 +1,7 @@
 <template>
   <div class="Movies">
     <div>
-      <h1 class="title">Movies List</h1>
+      <h1 class="title" >Movies List</h1>
     </div>
     <div class="addMovie">
       <button>
@@ -9,8 +9,18 @@
       </button>
     </div>
     <div class="searchInput">
-      <input type="text" v-model="search">
+      <input type="text" v-model="search" placeholder="Search Movies">
     </div>
+    <div class="checkBoxContainer">
+      <h3 class="genre">Genre</h3>
+        <label for="drama">Drama</label>
+     <input id="drama" type="checkbox" value="drama" v-model="drama" >
+      <label for="romance">Romance</label>
+      <input id="romance" type="checkbox" value="romance" v-model="romance">
+      <label for="thriller">Thriller</label>
+      <input id="thriller" type="checkbox" value="thriller" v-model="thriller"/>
+    </div>
+    {{JSON.stringify(getComedy)}}
     <!-- <AddMovie v-bind:list="list" /> -->
     <div>
       <table>
@@ -19,7 +29,7 @@
           <th>Title</th>
           <th>Rating</th>
         </tr>
-        <tr class="table-content" v-for="item in getfilteredList" v-bind:key="item.id">
+        <tr class="table-content" v-for="item in list" v-bind:key="item.id">
           <td>
             <img
               id="image"
@@ -57,6 +67,9 @@ export default {
       users: "hello",
       list: [],
       search:"",
+      drama:false,
+      romance:false,
+      thriller:false
     };
   },
   methods: {
@@ -79,7 +92,13 @@ export default {
     getfilteredList(){
       console.log(this.list.filter(item=>item.title.includes(this.search)))
       return this.list.filter(item=>item.title.toLowerCase().includes(this.search.toLowerCase()));
+    },
+    getComedy(){
+      return console.log(this.list.filter(item=>item.genres.includes(this.comedy)))
     }
+  },
+  watch:{
+
   }
 };
 </script>
@@ -138,4 +157,31 @@ table {
 .text {
   font-weight: 500;
 }
+
+.searchInput input{
+  padding:10px;
+  border:1px solid black;
+  margin-bottom:10px;
+  border-radius:5px;
+}
+
+.searchInput input:hover{
+  padding:20px;
+  transition:0.3s ease;
+}
+/*.genre{*/
+/*  display: flex;*/
+/*  position:absolute;*/
+/*  top:0;*/
+/*  right:0*/
+/*}*/
+
+.checkbox{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+margin: 20px 0;
+}
+
+
 </style>

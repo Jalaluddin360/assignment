@@ -4,12 +4,13 @@
       <h1>Books list</h1>
     </div>
     <div class="cardContainer">
-    <vs-card class="card" v-for="item in list" v-bind:key="item.id">
+    <vs-card class="card" v-for="(item,index) in list" v-bind:key="index">
       <template #title>
         <h3>{{item.title}}</h3>
+        <h3>{{index}}</h3>
       </template>
       <template #img>
-        <img style="background-size:cover" :src="item.thumbnailUrl" alt="image" @error="setAltImage">
+        <img style="background-size:cover"  :src="item.thumbnailUrl" alt="image" @error="setAltImage">
       </template>
       <template #text>
         <p style="font-size:14px;font-weight:400;">
@@ -20,7 +21,7 @@
         <vs-button danger icon @click="handleFav">
           <i class='bx bx-heart'></i>
         </vs-button>
-        <vs-button style="background:red;color:white" class="btn-chat" shadow primary>
+        <vs-button style="background:red;color:white" class="btn-chat" shadow primary @click="handleDelete(index)" >
           Delete
         </vs-button>
       </template>
@@ -40,23 +41,35 @@ export default {
   data() {
     return {
       list: [],
-      fav:true
+      fav:true,
+      loading:false
     };
   },
-  methods: {
-    setAltImage: (e) => {
-      e.target.src =
-        "https://cdn.pixabay.com/photo/2016/03/31/18/36/cinema-1294496__340.png";
-    },
-   handleFav:()=>{
-      this.list.data.push(this.fav)
-    },
-  },
+
   mounted() {
     Vue.axios.get("https://raw.githubusercontent.com/bvaughn/infinite-list-reflow-examples/master/books.json").then((res) => {
       this.list = res.data;
       console.log(res);
     });
+  },
+  methods: {
+    setAltImage: (e) => {
+
+      e.target.src =
+        "https://cdn.pixabay.com/photo/2016/03/31/18/36/cinema-1294496__340.png";
+
+    },
+
+   handleFav:()=>{
+      this.list.data.push(this.fav)
+    },
+      handleDelete:function(index){
+      console.log(index)
+       this.list.splice(index,1)
+    }
+  },
+  computed:{
+
   },
 };
 </script>
