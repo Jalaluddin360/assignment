@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+
     <SideBar />
     <router-view class="view" />
     <!-- <nav>
