@@ -39,7 +39,7 @@
             </template>
 
             <div class="form">
-              <label for="nameInput">Name </label>
+              <label for="nameInput" class="label">Name </label>
               <input
                 id="nameInput"
                 type="text"
@@ -49,15 +49,15 @@
 
               <br />
               <br />
-              Type
-              <select @change="filterTodo($event)">
+              <label class="label">Type</label>
+              <select>
                 <option value="Movie">Movie</option>
                 <option value="Series">Series</option>
                 <option value="Books">Books</option>
               </select>
               <br />
               <br />
-              Genre
+              <label class="label"> Genre</label>
               <select @change="filterTodo($event)">
                 <option value="Action">Action</option>
                 <option value="Comedy">Comedy</option>
@@ -167,5 +167,11 @@
     font-size: 16px;
     padding: 10px;
     margin: 5px;
+  }
+
+  .label {
+    margin-right: 5px;
+    font-size: 16px;
+    font-weight: 600;
   }
 </style>
