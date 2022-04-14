@@ -2,7 +2,7 @@
   <div class="bookslist">
     <div class="title">
       <h1>Books list</h1>
-      <!-- {{ JSON.stringify(allBooks) }} -->
+      {{ JSON.stringify(allFavs) }}
     </div>
     {{ count }}
     <div class="cardContainer">
@@ -13,7 +13,6 @@
       >
         <template #title>
           <h3>{{ item.title }}</h3>
-          <h3>{{ index }}</h3>
         </template>
         <template #img>
           <img
@@ -29,9 +28,6 @@
           </p>
         </template>
         <template #interactions>
-          <vs-button danger icon @click="handleFav">
-            <i class="bx bx-heart"></i>
-          </vs-button>
           <vs-button
             style="background: red; color: white"
             class="btn-chat"
@@ -71,6 +67,7 @@
           "https://raw.githubusercontent.com/bvaughn/infinite-list-reflow-examples/master/books.json"
         )
         .then((res) => {
+          console.log(res.data);
           this.setBooks(res.data);
         });
     },
@@ -81,15 +78,16 @@
           "https://cdn.pixabay.com/photo/2016/03/31/18/36/cinema-1294496__340.png";
       },
 
-      handleFav: () => {
-        this.list.data.push(this.fav);
+      handleFav: function () {
+        //
       },
+
       handleDelete: function (index) {
         console.log(index);
         this.allBooks.splice(index, 1);
       },
     },
-    computed: mapGetters(["allBooks"]),
+    computed: mapGetters(["allBooks", "allFavs"]),
   };
 </script>
 

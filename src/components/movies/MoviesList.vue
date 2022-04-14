@@ -2,17 +2,17 @@
   <div class="Movies">
     <div>
       <h1 class="title">Movies List</h1>
-      <!-- {{ JSON.stringify(allMovies) }} -->
+      <!-- {{ JSON.stringify(allBooks) }} -->
     </div>
-    <div class="addMovie">
+    <!-- <div class="addMovie">
       <button>
         <router-link class="route-text" to="/addMovie">Add Movie</router-link>
       </button>
-    </div>
-    <div class="searchInput">
+    </div> -->
+    <!-- <div class="searchInput">
       <input type="text" v-model="search" placeholder="Search Movies" />
-    </div>
-    <div class="checkBoxContainer">
+    </div> -->
+    <div class="checkBoxContainer" style="margin-bottom: 20px">
       <h3 class="genre">Genre</h3>
       <label for="drama">Drama</label>
       <input
@@ -108,7 +108,7 @@
         });
     },
     computed: {
-      ...mapGetters(["allMovies"]),
+      ...mapGetters(["allMovies", "allBooks"]),
       getfilteredList() {
         console.log(
           this.list.filter((item) => item.title.includes(this.search))
