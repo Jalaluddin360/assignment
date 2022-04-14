@@ -1,4 +1,5 @@
 <script>
+  import { mapActions, mapGetters } from "vuex";
   export default {
     name: "SideBar",
     props: {},
@@ -8,8 +9,26 @@
         email: "",
         password: "",
         remember: false,
+        Name: "",
+        tab: "",
+        cat: "",
       };
     },
+    methods: {
+      ...mapActions(["setName", "setType", "setGenre"]),
+      handleClick: function () {
+        this.setName(this.Name);
+        this.setType(this.tab);
+        this.setGenre(this.cat);
+        console.log(this.getName);
+        console.log(this.getType);
+        console.log(this.getGenre);
+      },
+    },
+    computed: {
+      ...mapGetters(["getName", "getType", "getGenre"]),
+    },
+    mounted: {},
   };
 </script>
 
@@ -43,14 +62,14 @@
               <input
                 id="nameInput"
                 type="text"
-                v-model="categoryName"
+                v-model="Name"
                 placeholder="Category name"
               />
 
               <br />
               <br />
               <label class="label">Type</label>
-              <select>
+              <select v-model="tab">
                 <option value="Movie">Movie</option>
                 <option value="Series">Series</option>
                 <option value="Books">Books</option>
@@ -58,12 +77,18 @@
               <br />
               <br />
               <label class="label"> Genre</label>
-              <select @change="filterTodo($event)">
+              <select v-model="cat">
                 <option value="Action">Action</option>
                 <option value="Comedy">Comedy</option>
                 <option value="Drama">Drama</option>
               </select>
             </div>
+            <input
+              class="submit"
+              type="submit"
+              value="Submit"
+              @click="handleClick"
+            />
           </vs-dialog>
         </div>
       </template>
@@ -173,5 +198,19 @@
     margin-right: 5px;
     font-size: 16px;
     font-weight: 600;
+  }
+
+  .submit {
+    margin-top: 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: black;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+  }
+  .submit:hover {
+    padding: 15px;
+    transition: 0.2s ease;
   }
 </style>

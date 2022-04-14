@@ -2,12 +2,19 @@ const state = {
   movies: [],
   books: [],
   favs: [],
+  // form
+  name: "",
+  type: "",
+  genre: "",
 };
 
 const getters = {
   allBooks: (state) => state.books,
   allMovies: (state) => state.movies,
   allFavs: (state) => state.favs,
+  getName: (state) => state.name,
+  getType: (state) => state.type,
+  getGenre: (state) => state.genre,
 };
 
 const actions = {
@@ -20,6 +27,15 @@ const actions = {
   setFavs: function ({ commit }, favObj) {
     commit("setFavs", favObj);
   },
+  setName: function ({ commit }, name) {
+    commit("setName", name);
+  },
+  setType: function ({ commit }, type) {
+    commit("setType", type);
+  },
+  setGenre: function ({ commit }, genre) {
+    commit("setGenre", genre);
+  },
 };
 
 const mutations = {
@@ -29,6 +45,9 @@ const mutations = {
     console.log("fav---->", fav);
     state.favs = fav;
   },
+  setName: (state, name) => (state.name = name),
+  setType: (state, type) => (state.type = type),
+  setGenre: (state, genre) => (state.genre = genre),
 };
 
 export default {
