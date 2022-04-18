@@ -2,7 +2,7 @@
   <div class="bookslist">
     <div class="title">
       <h1>Books list</h1>
-      {{ JSON.stringify(allFavs) }}
+      {{ JSON.stringify(allFavourites) }}
     </div>
     {{ count }}
     <div class="cardContainer">
@@ -282,14 +282,14 @@
       };
     },
     methods: {
-      ...mapActions(["setFavs"]),
+      ...mapActions(["setFavourites"]),
       handleFav: function (index) {
         let book = this.bookArrayOfObj[index];
         book.fav = true;
-        this.setFavs(book);
+        this.setFavourites(book);
       },
     },
-    computed: mapGetters(["allFavs"]),
+    computed: mapGetters(["allFavourites"]),
 
     mounted() {},
     watch: {},

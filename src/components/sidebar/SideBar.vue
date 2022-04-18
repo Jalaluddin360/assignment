@@ -1,8 +1,37 @@
+<template>
+  <div class="sidebar">
+    <div class="sidebar-title">
+      <h1>Flix</h1>
+    </div>
+    <!-- {{ JSON.stringify(getType) }} -->
+    <div id="sidebar-list">
+      <router-link
+        v-for="link in routerLinks"
+        :class="link.class"
+        :to="link.link"
+        :key="link.name"
+        >{{ link.name }}</router-link
+      >
+      <!-- <router-link class="link" to="/movies">Movies</router-link>
+      <router-link class="link" to="/series">Series</router-link>
+      <router-link class="link" to="/books">Books</router-link> -->
+    </div>
+    <!-- <router-view /> -->
+    <div class="sidebarAdd">
+      <template>
+        <div class="center"></div>
+      </template>
+    </div>
+  </div>
+</template>
+
 <script>
   import { mapActions, mapGetters } from "vuex";
+  import AddForm from "../AddForm.vue";
+
   export default {
     name: "SideBar",
-    props: {},
+    components: AddForm,
     data() {
       return {
         active: false,
@@ -12,89 +41,61 @@
         Name: "",
         tab: "",
         cat: "",
+        routerLinks: [
+          {
+            name: "Home",
+            class: "link",
+            link: "/",
+          },
+          {
+            name: "Movies",
+            class: "link",
+            link: "/movies",
+          },
+          {
+            name: "Series",
+            class: "link",
+            link: "/series",
+          },
+          {
+            name: "Books",
+            class: "link",
+            link: "/books",
+          },
+        ],
       };
     },
     methods: {
-      ...mapActions(["setName", "setType", "setGenre"]),
-      handleClick: function () {
+      ...mapActions({
+        setName: "form/setName",
+        setType: "form/setType",
+        setGenre: "form/setGenre",
+      }),
+      addMovie: function () {
         this.setName(this.Name);
         this.setType(this.tab);
         this.setGenre(this.cat);
-        console.log(this.getName);
-        console.log(this.getType);
-        console.log(this.getGenre);
+        // console.log(this.getName);
+        // console.log(this.getType);
+        // console.log(this.getGenre);
+        if (this.getName && this.getType && this.getGenre) {
+          window.alert(
+            `Name = ${this.getName}, Type= ${this.getType}, Genre = ${this.getGenre}`
+          );
+        } else {
+          alert("something went wrong");
+        }
       },
     },
     computed: {
-      ...mapGetters(["getName", "getType", "getGenre"]),
+      ...mapGetters({
+        getName: "form/getName",
+        getType: "form/getType",
+        getGenre: "form/getGenre",
+      }),
     },
-    mounted: {},
   };
 </script>
-
-<template>
-  <div class="sidebar">
-    <div class="sidebar-title">
-      <h1>Flix</h1>
-    </div>
-    <div id="sidebar-list">
-      <router-link class="link" to="/">Home</router-link>
-      <router-link class="link" to="/movies">Movies</router-link>
-      <router-link class="link" to="/series">Series</router-link>
-      <router-link class="link" to="/books">Books</router-link>
-    </div>
-    <!-- <router-view /> -->
-    <div class="sidebarAdd">
-      <template>
-        <div class="center">
-          <vs-button @click="active = !active" id="dialogBtn">
-            Add Option
-          </vs-button>
-          <vs-dialog v-model="active">
-            <template #header>
-              <h4 class="not-margin">
-                <b>Add to the list</b>
-              </h4>
-            </template>
-
-            <div class="form">
-              <label for="nameInput" class="label">Name </label>
-              <input
-                id="nameInput"
-                type="text"
-                v-model="Name"
-                placeholder="Category name"
-              />
-
-              <br />
-              <br />
-              <label class="label">Type</label>
-              <select v-model="tab">
-                <option value="Movie">Movie</option>
-                <option value="Series">Series</option>
-                <option value="Books">Books</option>
-              </select>
-              <br />
-              <br />
-              <label class="label"> Genre</label>
-              <select v-model="cat">
-                <option value="Action">Action</option>
-                <option value="Comedy">Comedy</option>
-                <option value="Drama">Drama</option>
-              </select>
-            </div>
-            <input
-              class="submit"
-              type="submit"
-              value="Submit"
-              @click="handleClick"
-            />
-          </vs-dialog>
-        </div>
-      </template>
-    </div>
-  </div>
-</template>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>

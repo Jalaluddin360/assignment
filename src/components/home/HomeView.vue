@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div style="margin-bottom: 2em">
+    <div>
       <h1>Movies</h1>
       <!-- {{ JSON.stringify(allMovies) }} -->
       <vs-card-group>
@@ -23,7 +23,7 @@
         </vs-card>
       </vs-card-group>
     </div>
-    <div style="margin-bottom: 2em">
+    <div>
       <h1>Books</h1>
       <!-- {{ JSON.stringify(allMovies) }} -->
       <vs-card-group>
@@ -53,7 +53,12 @@
   import { mapGetters } from "vuex";
   export default {
     name: "HomeView",
-    computed: { ...mapGetters(["allBooks", "allMovies"]) },
+    computed: {
+      ...mapGetters({
+        allBooks: "book/allBooks",
+        allMovies: "movie/allMovies",
+      }),
+    },
     methods: {
       setAltImage: (e) => {
         e.target.src =

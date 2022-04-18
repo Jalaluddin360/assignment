@@ -4,7 +4,6 @@ import Home from "./components/home/HomeView.vue";
 import Movies from "./components/movies/MoviesList.vue";
 import Series from "./components/series/SeriesList.vue";
 import Books from "./components/books/BooksList.vue";
-import AddMovie from "./components/movies/AddMovie.vue";
 
 Vue.use(vueRouter);
 
@@ -29,11 +28,6 @@ export default new vueRouter({
       path: "/books",
       name: "Books",
       component: Books,
-    },
-    {
-      path: "/addMovie",
-      name: "addMovie",
-      component: AddMovie,
     },
   ],
 });

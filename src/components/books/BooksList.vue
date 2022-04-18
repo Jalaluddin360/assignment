@@ -2,13 +2,13 @@
   <div class="bookslist">
     <div class="title">
       <h1>Books list</h1>
-      {{ JSON.stringify(allFavs) }}
+      <!-- {{ JSON.stringify(getBooks) }} -->
     </div>
     {{ count }}
     <div class="cardContainer">
       <vs-card
         class="card"
-        v-for="(item, index) in allBooks"
+        v-for="(item, index) in getBooks"
         v-bind:key="index"
       >
         <template #title>
@@ -56,7 +56,6 @@
     data() {
       return {
         list: [],
-        fav: true,
         loading: false,
       };
     },
@@ -72,7 +71,7 @@
         });
     },
     methods: {
-      ...mapActions(["setBooks"]),
+      ...mapActions({ setBooks: "book/setBooks" }),
       setAltImage: (e) => {
         e.target.src =
           "https://cdn.pixabay.com/photo/2016/03/31/18/36/cinema-1294496__340.png";
@@ -84,10 +83,10 @@
 
       handleDelete: function (index) {
         console.log(index);
-        this.allBooks.splice(index, 1);
+        this.getBooks.splice(index, 1);
       },
     },
-    computed: mapGetters(["allBooks", "allFavs"]),
+    computed: mapGetters({ getBooks: "book/allBooks" }),
   };
 </script>
 

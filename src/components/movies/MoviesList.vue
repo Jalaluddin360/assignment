@@ -2,7 +2,7 @@
   <div class="Movies">
     <div>
       <h1 class="title">Movies List</h1>
-      <!-- {{ JSON.stringify(allBooks) }} -->
+      <!-- {{ JSON.stringify(getMovies) }} -->
     </div>
     <!-- <div class="addMovie">
       <button>
@@ -91,7 +91,7 @@
       };
     },
     methods: {
-      ...mapActions(["setMovies"]),
+      ...mapActions({ setMovies: "movie/setMovies" }),
       setAltImage: (e) => {
         e.target.src =
           "https://cdn.pixabay.com/photo/2016/03/31/18/36/cinema-1294496__340.png";
@@ -108,7 +108,7 @@
         });
     },
     computed: {
-      ...mapGetters(["allMovies", "allBooks"]),
+      ...mapGetters({ allMovies: "movie/allMovies" }),
       getfilteredList() {
         console.log(
           this.list.filter((item) => item.title.includes(this.search))
