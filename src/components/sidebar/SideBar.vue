@@ -19,7 +19,9 @@
     <!-- <router-view /> -->
     <div class="sidebarAdd">
       <template>
-        <div class="center"></div>
+        <div class="center">
+          <add-form />
+        </div>
       </template>
     </div>
   </div>
@@ -30,14 +32,11 @@
   import AddForm from "../AddForm.vue";
 
   export default {
+    components: { AddForm },
     name: "SideBar",
-    components: AddForm,
     data() {
       return {
-        active: false,
-        email: "",
-        password: "",
-        remember: false,
+     
         Name: "",
         tab: "",
         cat: "",
@@ -168,50 +167,5 @@
     bottom: 100px;
   }
 
-  #dialogBtn {
-    background: white;
-    color: black;
-  }
-
-  /* form */
-  .form input {
-    padding: 8px;
-    border-top: none;
-    border-right: none;
-    border-left: none;
-  }
-
-  .form select {
-    padding: 8px;
-    border-top: none;
-    border-right: none;
-    border-left: none;
-    background: white;
-  }
-
-  .form option {
-    font-size: 16px;
-    padding: 10px;
-    margin: 5px;
-  }
-
-  .label {
-    margin-right: 5px;
-    font-size: 16px;
-    font-weight: 600;
-  }
-
-  .submit {
-    margin-top: 20px;
-    border-radius: 5px;
-    border: none;
-    background-color: black;
-    color: white;
-    padding: 10px;
-    cursor: pointer;
-  }
-  .submit:hover {
-    padding: 15px;
-    transition: 0.2s ease;
-  }
+  
 </style>

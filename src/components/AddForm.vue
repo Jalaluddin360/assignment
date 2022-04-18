@@ -42,10 +42,21 @@
 <script>
   export default {
     name: "AddForm",
+    data() {
+      return {
+        active: false,
+      };
+    },
   };
 </script>
 <style>
-.form input {
+  #dialogBtn {
+    background: white;
+    color: black;
+  }
+
+  /* form */
+  .form input {
     padding: 8px;
     border-top: none;
     border-right: none;
@@ -84,4 +95,5 @@
   .submit:hover {
     padding: 15px;
     transition: 0.2s ease;
-  }</style>
+  }
+</style>
