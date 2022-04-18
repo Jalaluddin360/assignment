@@ -10,6 +10,8 @@ Vue.use(VueSax);
 
 Vue.use(vueRouter);
 
+export const eventBus = new Vue();
+
 Vue.config.productionTip = false;
 
 new Vue({

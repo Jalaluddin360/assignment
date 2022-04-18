@@ -2,7 +2,7 @@
   <div class="bookslist">
     <div class="title">
       <h1>Books list</h1>
-      {{ JSON.stringify(allFavourites) }}
+      {{ JSON.stringify(genre) }}
     </div>
     {{ count }}
     <div class="cardContainer">
@@ -27,7 +27,7 @@
           </p>
         </template>
         <template #interactions>
-          <button class="btn" @click="handleFav(index)">Add to fav</button>
+          <button class="btn" @click="addToFav(index)">Add to fav</button>
         </template>
       </vs-card>
     </div>
@@ -36,6 +36,7 @@
 
 <script>
   import { mapActions, mapGetters } from "vuex";
+  import { eventBus } from "../../main";
 
   // book = this.booksArray[index];
   // book.fav = true;
@@ -44,6 +45,9 @@
     name: "SeriesList",
     data() {
       return {
+        name: "",
+        type: "",
+        genre: "",
         bookArrayOfObj: [
           {
             title: "Unlocking Android",
@@ -282,17 +286,29 @@
       };
     },
     methods: {
-      ...mapActions(["setFavourites"]),
-      handleFav: function (index) {
+      ...mapActions({
+        setFavourites: "setFavourites",
+        getName: "form/getName",
+        getType: "form/getType",
+        getGenre: "form/getGenre",
+      }),
+      addToFav: function (index) {
         let book = this.bookArrayOfObj[index];
         book.fav = true;
         this.setFavourites(book);
       },
     },
-    computed: mapGetters(["allFavourites"]),
+    created: function () {
+      eventBus.$on("add", ({ name, type, genre }) => {
+        // this.name = name;
+        // this.type = type;
+        // this.genre = genre;
 
-    mounted() {},
-    watch: {},
+        console.log("newObj", this.bookArrayOfObj.push({ name, type, genre }));
+        console.log("array of object--->", this.bookArrayOfObj);
+      });
+    },
+    computed: mapGetters(["allFavourites"]),
   };
 </script>
 <style scoped>

@@ -1,14 +1,16 @@
 export default {
   namespaced: true,
   state: {
-    name: "",
-    type: "",
-    genre: "",
+    form: {
+      name: "",
+      type: "",
+      genre: "",
+    },
   },
   getters: {
-    getName: (state) => state.name,
-    getType: (state) => state.type,
-    getGenre: (state) => state.genre,
+    getName: (state) => state.form.name,
+    getType: (state) => state.form.type,
+    getGenre: (state) => state.form.genre,
   },
   actions: {
     setName: function ({ commit }, name) {
@@ -22,8 +24,8 @@ export default {
     },
   },
   mutations: {
-    SET_NAME: (state, name) => (state.name = name),
-    SET_TYPE: (state, type) => (state.type = type),
-    SET_GENRE: (state, genre) => (state.genre = genre),
+    SET_NAME: (state, name) => (state.form.name = name),
+    SET_TYPE: (state, type) => (state.form.type = type),
+    SET_GENRE: (state, genre) => (state.form.genre = genre),
   },
 };

@@ -41,6 +41,8 @@
 </template>
 <script>
   import { mapActions, mapGetters } from "vuex";
+  import { eventBus } from "../main";
+
   export default {
     name: "AddForm",
     data() {
@@ -61,15 +63,21 @@
         this.setName(this.Name);
         this.setType(this.tab);
         this.setGenre(this.cat);
+
         // console.log(this.getName);
         // console.log(this.getType);
         // console.log(this.getGenre);
         if (this.getName && this.getType && this.getGenre) {
-          window.alert(
+          console.log(
             `Name = ${this.getName}, Type= ${this.getType}, Genre = ${this.getGenre}`
           );
+          eventBus.$emit("add", {
+            name: this.getName,
+            type: this.getType,
+            genre: this.getGenre,
+          });
         } else {
-          alert("something went wrong");
+          console.log("something went wrong");
         }
       },
     },
