@@ -40,12 +40,55 @@
   </div>
 </template>
 <script>
+  import { mapActions, mapGetters } from "vuex";
   export default {
     name: "AddForm",
+    data() {
+      return {
+        active: false,
+        Name: "",
+        tab: "",
+        cat: "",
+      };
+    },
+    methods: {
+      ...mapActions({
+        setName: "form/setName",
+        setType: "form/setType",
+        setGenre: "form/setGenre",
+      }),
+      addMovie: function () {
+        this.setName(this.Name);
+        this.setType(this.tab);
+        this.setGenre(this.cat);
+        // console.log(this.getName);
+        // console.log(this.getType);
+        // console.log(this.getGenre);
+        if (this.getName && this.getType && this.getGenre) {
+          window.alert(
+            `Name = ${this.getName}, Type= ${this.getType}, Genre = ${this.getGenre}`
+          );
+        } else {
+          alert("something went wrong");
+        }
+      },
+    },
+    computed: {
+      ...mapGetters({
+        getName: "form/getName",
+        getType: "form/getType",
+        getGenre: "form/getGenre",
+      }),
+    },
   };
 </script>
 <style>
-.form input {
+  #dialogBtn {
+    background: white;
+    color: black;
+  }
+
+  .form input {
     padding: 8px;
     border-top: none;
     border-right: none;
@@ -84,4 +127,5 @@
   .submit:hover {
     padding: 15px;
     transition: 0.2s ease;
-  }</style>
+  }
+</style>

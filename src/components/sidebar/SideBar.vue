@@ -19,28 +19,22 @@
     <!-- <router-view /> -->
     <div class="sidebarAdd">
       <template>
-        <div class="center"></div>
+        <div class="center">
+          <add-form />
+        </div>
       </template>
     </div>
   </div>
 </template>
 
 <script>
-  import { mapActions, mapGetters } from "vuex";
   import AddForm from "../AddForm.vue";
 
   export default {
+    components: { AddForm },
     name: "SideBar",
-    components: AddForm,
     data() {
       return {
-        active: false,
-        email: "",
-        password: "",
-        remember: false,
-        Name: "",
-        tab: "",
-        cat: "",
         routerLinks: [
           {
             name: "Home",
@@ -64,35 +58,6 @@
           },
         ],
       };
-    },
-    methods: {
-      ...mapActions({
-        setName: "form/setName",
-        setType: "form/setType",
-        setGenre: "form/setGenre",
-      }),
-      addMovie: function () {
-        this.setName(this.Name);
-        this.setType(this.tab);
-        this.setGenre(this.cat);
-        // console.log(this.getName);
-        // console.log(this.getType);
-        // console.log(this.getGenre);
-        if (this.getName && this.getType && this.getGenre) {
-          window.alert(
-            `Name = ${this.getName}, Type= ${this.getType}, Genre = ${this.getGenre}`
-          );
-        } else {
-          alert("something went wrong");
-        }
-      },
-    },
-    computed: {
-      ...mapGetters({
-        getName: "form/getName",
-        getType: "form/getType",
-        getGenre: "form/getGenre",
-      }),
     },
   };
 </script>
