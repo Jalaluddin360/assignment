@@ -1,21 +1,39 @@
 <script>
-  import { mapActions, mapGetters } from "vuex";
+  //TODO : Follow the structure template, script, styles.
+  //TODO : Remove unused props and mounted.
+  import { mapActions, mapGetters } from 'vuex';
+
   export default {
-    name: "SideBar",
+    name: 'SideBar',
     props: {},
-    data() {
+    // TODO: create routerlinks data property and render links dynamically using routerlinks
+    data () {
       return {
         active: false,
-        email: "",
-        password: "",
+        email: '',
+        password: '',
         remember: false,
-        Name: "",
-        tab: "",
-        cat: "",
+        Name: '',
+        tab: '',
+        cat: '',
+        // routerLinks: [
+        //   {
+        //     name: '',
+        //     label: 'Home',
+        //     class: '',
+        //     link: '/',
+        //   },
+        // ]
       };
     },
     methods: {
-      ...mapActions(["setName", "setType", "setGenre"]),
+      // TODO : refactor this using namespacing
+      ...mapActions(['setName', 'setType', 'setGenre']),
+      // ...mapActions({
+      //   setName: 'filter/setBooks'
+      // }),
+
+      // TODO : change method name to addNewMovie and onclick add this new movie to moviesList
       handleClick: function () {
         this.setName(this.Name);
         this.setType(this.tab);
@@ -26,7 +44,8 @@
       },
     },
     computed: {
-      ...mapGetters(["getName", "getType", "getGenre"]),
+      // TODO : refactor this using namespacing
+      ...mapGetters(['getName', 'getType', 'getGenre']),
     },
     mounted: {},
   };
@@ -44,6 +63,7 @@
       <router-link class="link" to="/books">Books</router-link>
     </div>
     <!-- <router-view /> -->
+    <!-- TODO:   Create another component for form -->
     <div class="sidebarAdd">
       <template>
         <div class="center">
@@ -68,6 +88,7 @@
 
               <br />
               <br />
+              <!--   TODO: Create an array for option of types and render here-->
               <label class="label">Type</label>
               <select v-model="tab">
                 <option value="Movie">Movie</option>
@@ -76,7 +97,8 @@
               </select>
               <br />
               <br />
-              <label class="label"> Genre</label>
+              <!-- TODO: Create an array for option of Genres and render here -->
+              <label class="label">Genre</label>
               <select v-model="cat">
                 <option value="Action">Action</option>
                 <option value="Comedy">Comedy</option>
@@ -209,6 +231,7 @@
     padding: 10px;
     cursor: pointer;
   }
+
   .submit:hover {
     padding: 15px;
     transition: 0.2s ease;
