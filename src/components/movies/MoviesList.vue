@@ -72,13 +72,9 @@
 </template>
 
 <script>
-  import Vue from 'vue';
-  import axios from 'axios';
-  import VueAxios from 'vue-axios';
   import { mapActions, mapGetters } from 'vuex';
   import { eventBus } from '../../main';
-  // import AddMovie from "../movies/AddMovie.vue";
-  Vue.use(VueAxios, axios);
+
 
   export default {
     name: 'MovieList',

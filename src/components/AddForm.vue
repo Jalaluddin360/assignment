@@ -28,7 +28,7 @@
         <!-- TODO : use unique ID -->
         <input
           id="ratingINput"
-          type="text"
+          type="number"
           v-model="rating"
           placeholder="Movie Rating"
           required
