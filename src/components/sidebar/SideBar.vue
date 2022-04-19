@@ -3,7 +3,7 @@
     <div class="sidebar-title">
       <h1>Flix</h1>
     </div>
-    <!-- {{ JSON.stringify(getType) }} -->
+
     <div id="sidebar-list">
       <router-link
         v-for="link in routerLinks"
@@ -12,11 +12,8 @@
         :key="link.name"
         >{{ link.name }}</router-link
       >
-      <!-- <router-link class="link" to="/movies">Movies</router-link>
-      <router-link class="link" to="/series">Series</router-link>
-      <router-link class="link" to="/books">Books</router-link> -->
     </div>
-    <!-- <router-view /> -->
+
     <div class="sidebarAdd">
       <template>
         <div class="center">
@@ -62,7 +59,6 @@
   };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .sidebar {
     color: white;
@@ -108,26 +104,10 @@
     color: black;
   }
 
-  /* .sidebarAdd {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    bottom: 100px;
-    left: 80px;
-  }
-
-  .sidebarAdd:hover {
-    font-weight: 900;
-    cursor: pointer;
-  } */
-
-  /* sideBar addbutton css */
   .center {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* margin-top: 50px; */
     right: 50px;
     position: absolute;
     bottom: 100px;

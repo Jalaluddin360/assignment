@@ -2,7 +2,7 @@
   <div class="bookslist">
     <div class="title">
       <h1>Books list</h1>
-      {{ JSON.stringify(genre) }}
+      {{ JSON.stringify(allFavourites) }}
     </div>
     {{ count }}
     <div class="cardContainer">
@@ -36,7 +36,6 @@
 
 <script>
   import { mapActions, mapGetters } from "vuex";
-  import { eventBus } from "../../main";
 
   // book = this.booksArray[index];
   // book.fav = true;
@@ -204,84 +203,6 @@
             authors: ["Alexandre de Castro Alves"],
             categories: ["Java"],
           },
-          {
-            title: "Flexible Rails",
-            isbn: "1933988509",
-            fav: false,
-            pageCount: 592,
-            publishedDate: { $date: "2008-01-01T00:00:00.000-0800" },
-            thumbnailUrl:
-              "https://s3.amazonaws.com/AKIAJC5RLADLUMVRPFDQ.book-thumb-images/armstrong.jpg",
-            shortDescription:
-              '"Flexible Rails created a standard to which I hold other technical books. You definitely get your money\'s worth."',
-            longDescription:
-              "Rails is a fantastic tool for web application development, but its Ajax-driven interfaces stop short of the richness you gain with a tool like Adobe Flex. Simply put, Flex is the most productive way to build the UI of rich Internet applications, and Rails is the most productive way to rapidly build a database-backed CRUD application. Together, they're an amazing combination.    Flexible Rails is a book about how to use Ruby on Rails and Adobe Flex to build next-generation rich Internet applications (RIAs). The book takes you to the leading edge of RIA development, presenting examples in Flex 3 and Rails 2.    This book is not an exhaustive Ruby on Rails tutorial, nor a Flex reference manual. (Adobe ships over 3000 pages of PDF reference documentation with Flex.) Instead, it's an extensive tutorial, developed iteratively, how to build an RIA using Flex and Rails together. You learn both the specific techniques you need to use Flex and Rails together as well as the development practices that make the combination especially powerful.    The example application built in the book is MIT-licensed, so readers can use it as the basis for their own applications. In fact, one reader has already built an agile project management tool based on the book example!    With this book, you learn Flex by osmosis. You can read the book and follow along even if you have never used Flex before. Consider it \"Flex Immersion.\" You absorb the key concepts of Flex as you go through the process of building the application.    You will also learn how Flex and Rails integrate with HTTPService and XML, and see how RESTful Rails controller design gracefully supports using the same controller actions for Flex and HTML clients. The author will show you how Cairngorm can be used to architect larger Flex applications, including tips to use Cairngorm in a less verbose way with HTTPService to talk to Rails.    Flexible Rails is for both Rails developers who are interested in Flex, and Flex developers who are interested in Rails. For a Rails developer, Flex allows for more dynamic and engaging user interfaces than are possible with Ajax. For a Flex developer, Rails provides a way to rapidly build the ORM and services layer of the application.",
-            status: "PUBLISH",
-            authors: ["Peter Armstrong"],
-            categories: ["Web Development"],
-          },
-          {
-            title: "Hello! Flex 4",
-            isbn: "1933988762",
-            fav: false,
-            pageCount: 258,
-            publishedDate: { $date: "2009-11-01T00:00:00.000-0700" },
-            thumbnailUrl:
-              "https://s3.amazonaws.com/AKIAJC5RLADLUMVRPFDQ.book-thumb-images/armstrong3.jpg",
-            shortDescription:
-              "Hello! Flex 4 progresses through 26 self-contained examples selected so you can progressively master Flex. They vary from small one-page apps, to a 3D rotating haiku, to a Connect Four-like game. And in the last chapter you'll learn to build a full Flex application called SocialStalkr   a mashup that lets you follow your friends by showing their tweets on a Yahoo map.",
-            longDescription:
-              "With Flex 4 you can easily add color and life to your web applications by introducing dynamic user features, slick transitions, and eye-catching animations. Flex also provides powerful data handling capabilities so you can build industrial-strength applications. And it's open source, so you can get started without forking over a lot of your hard-earned cash.    We think it should be just as much fun to learn Flex as it is to use Flex. Hello! Flex 4 shows you everything you need to know to get started with Flex 4 without bogging you down in obscure detail or academic edge cases. In this entertaining, hands-on book, you'll quickly move from Hello World into the techniques you'll need to use Flex effectively.    You'll start by progressing through 26 self-contained workshop items, which include everything from small one-page examples, to a 3D rotating haiku, to building a Connect Four game. Finally, in the last chapter you'll build a full Flex application called 'SocialStalkr': an interesting mashup of Twitter and Yahoo Maps that lets you 'stalk' your friends by showing specially formatted Twitter tweets on a Yahoo map.",
-            status: "PUBLISH",
-            authors: ["Peter Armstrong"],
-            categories: ["Internet"],
-          },
-          {
-            title: "Coffeehouse",
-            isbn: "1884777384",
-            fav: false,
-            pageCount: 316,
-            publishedDate: { $date: "1997-07-01T00:00:00.000-0700" },
-            thumbnailUrl:
-              "https://s3.amazonaws.com/AKIAJC5RLADLUMVRPFDQ.book-thumb-images/asher.jpg",
-            shortDescription:
-              "Coffeehouse is an anthology of stories, poems and essays originally published on the World Wide Web.",
-            longDescription:
-              'Coffeehouse is an anthology of stories, poems and essays originally published on the World Wide Web. The purpose is to capture the zeitgeist of the web\'s creative community, and to give readers a chance to enjoy some of the best and most notable original works that have appeared in this form. It showcases over forty individual web writers, among them Joseph Squier, Martha Conway, Jason Snell, David Alexander, Carl Steadman and Walter Miller. The intent is to show the variety and vitality of the web\'s blossoming literary "scene," and to capture the unique and highly iconoclastic "personality" of the web community.',
-            status: "PUBLISH",
-            authors: ["Levi Asher", "Christian Crumlish"],
-            categories: ["Miscellaneous"],
-          },
-          {
-            title: "Team Foundation Server 2008 in Action",
-            isbn: "1933988592",
-            fav: false,
-            pageCount: 344,
-            publishedDate: { $date: "2008-12-01T00:00:00.000-0800" },
-            thumbnailUrl:
-              "https://s3.amazonaws.com/AKIAJC5RLADLUMVRPFDQ.book-thumb-images/azher.jpg",
-            longDescription:
-              "In complex software projects, managing the development process can be as critical to success as writing the code itself. A project may involve dozens of developers, managers, architects, testers, and customers, hundreds of builds, and thousands of opportunities to get off-track. To keep tabs on the people, tasks, and components of a medium- to large-scale project, most teams use a development system that allows for easy monitoring, follow-up, and accountability.    Microsoft Team Foundation Server 2008 (TFS), the server component of Microsoft's Visual Studio Team System (VSTS), provides a powerful collaborative platform for software-development teams. The product offers an integrated toolset for tracking work items, creating test cases, managing source code, generating builds, constructing database schemas, and so on. Because in software development one size does not fit all, TFS provides process customization, project management, and reporting capabilities to build solutions around your requirements.    Team Foundation Server 2008 in Action is a hands-on guide to Team Foundation Server 2008. Written for developers with a good handle on TFS basics, this book shows you how to solve real-life problems. It's not a repetition of Microsoft's product documentation. Team Foundation Server 2008 in Action is a practitioner's handbook for how to work with TFS under common constraints. This book walks you through real-life software engineering problems based on hundreds of hours of TFS experience.    You'll benefit from expert author Jamil Azher's extensive interactions with members of Microsoft's TFS team and MVPs, survey feedback from the author's blog, and interviews with organizations and user groups using TFS. Instead of just offering a high-level overview, the book provides detailed solutions for solving common   and not-so-common   problems using TFS. It discusses the strengths as well as weaknesses of TFS, and suggests appropriate problem resolution steps, workarounds, or custom solutions.",
-            status: "PUBLISH",
-            authors: ["Jamil Azher"],
-            categories: ["Microsoft .NET"],
-          },
-          {
-            title: "Brownfield Application Development in .NET",
-            isbn: "1933988711",
-            fav: false,
-            pageCount: 550,
-            publishedDate: { $date: "2010-04-16T00:00:00.000-0700" },
-            thumbnailUrl:
-              "https://s3.amazonaws.com/AKIAJC5RLADLUMVRPFDQ.book-thumb-images/baley.jpg",
-            shortDescription:
-              "Brownfield Application Dereading 'slice'velopment in .Net shows you how to approach legacy applications with the state-of-the-art concepts, patterns, and tools you've learned to apply to new projects. Using an existing application as an example, this book guides you in applying the techniques and best practices you need to make it more maintainable and receptive to change.",
-            longDescription:
-              "It's easy to get excited about building a new software project from scratch. So-called \"greenfield\" projects often involve learning new technology and the opportunity for experimentation. Working on established software projects may seem less glamorous.    Most software developers have inherited a monolithic application where the day-to-day tasks involve maintenance, incremental improvements, or even cleaning up the mess another programmer left behind. These legacy or brownfield projects often have tightly coupled components, low cohesion, and poor separation of concerns, making them fragile and resistant to change.    Brownfield Application Development in .Net shows you how to approach legacy applications with the state-of-the-art concepts, patterns, and tools you've learned to apply to new projects. Using an existing application as an example, this book guides you in applying the techniques and best practices you need to make it more maintainable and receptive to change.    Starting with the build process and the introduction of unit tests, the authors show you how to set up the application so that in later chapters, you can make incremental changes aimed at decoupling components from each other. Each practice introduced will increase your confidence and ability to make subsequent changes to your code.    As the book proceeds, the authors introduce frameworks and tools commonly used today while still approaching the subject from a conceptual level so that you can substitute alternate tools as appropriate. This book examines the reasons why a tool is necessary, not the tool itself. Because the book is based on the authors' experiences, Brownfield Application Development in .Net moves beyond the theories and shows you the techniques you need to be successful.",
-            status: "PUBLISH",
-            authors: ["Kyle Baley", "Donald Belcham"],
-            categories: ["Microsoft"],
-          },
         ],
       };
     },
@@ -293,20 +214,13 @@
         getGenre: "form/getGenre",
       }),
       addToFav: function (index) {
-        let book = this.bookArrayOfObj[index];
-        book.fav = true;
+        let book = [];
+        let obj = this.bookArrayOfObj[index];
+        obj.fav = true;
+        book.push(obj);
         this.setFavourites(book);
+        console.log("boook===>", book);
       },
-    },
-    created: function () {
-      eventBus.$on("add", ({ name, type, genre }) => {
-        // this.name = name;
-        // this.type = type;
-        // this.genre = genre;
-
-        console.log("newObj", this.bookArrayOfObj.push({ name, type, genre }));
-        console.log("array of object--->", this.bookArrayOfObj);
-      });
     },
     computed: mapGetters(["allFavourites"]),
   };
