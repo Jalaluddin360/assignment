@@ -7,13 +7,13 @@ export default {
 
   actions: {
     setFavourites: function ({ commit }, favObj) {
-      commit("SETFAVOURITE", favObj);
+      commit('SETFAVOURITE', favObj);
     },
   },
 
   mutations: {
     SETFAVOURITE: function (state, favourite) {
-      console.log("fav---->", favourite);
+      console.log('fav---->', favourite);
       state.favourite = favourite;
     },
   },

@@ -1,7 +1,9 @@
 <template>
   <div>
-    <vs-button @click="active = !active" id="dialogBtn"> Add Option </vs-button>
+    <!-- TODO : write method toggleDialogBox and change active in that method -->
+    <vs-button @click="active = !active" id="dialogBtn"> Add Option</vs-button>
     <vs-dialog v-model="active">
+      <!-- TODO: Remove redundant template tags -->
       <template #header>
         <h4 class="not-margin">
           <b>Add to the list</b>
@@ -21,7 +23,9 @@
 
         <br />
         <br />
+        <!-- TODO: Remove unused code-->
         <label class="label">Rating</label>
+        <!-- TODO : use unique ID -->
         <input
           id="ratingINput"
           type="text"
@@ -41,6 +45,7 @@
         />
         <br />
         <br />
+        <!--  TODO : Create generes array rather than writing statically -->
         <label class="label"> Genre</label>
         <select v-model="cat" required>
           <option value="Action">Action</option>
@@ -53,27 +58,28 @@
   </div>
 </template>
 <script>
-  import { mapActions, mapGetters } from "vuex";
+  import { mapActions, mapGetters } from 'vuex';
 
-  import { eventBus } from "../main";
+  import { eventBus } from '../main';
 
   export default {
-    name: "AddForm",
-    data() {
+    name: 'AddForm',
+    data () {
       return {
         active: false,
-        title: "",
-        rating: "",
-        url: "",
-        cat: "",
+        title: '',
+        rating: '',
+        url: '',
+        // TODO : change cat to category
+        cat: '',
       };
     },
     methods: {
       ...mapActions({
-        setTitle: "form/setTitle",
-        setRating: "form/setRating",
-        setGenre: "form/setGenre",
-        setUrl: "form/setUrl",
+        setTitle: 'form/setTitle',
+        setRating: 'form/setRating',
+        setGenre: 'form/setGenre',
+        setUrl: 'form/setUrl',
       }),
       addMovie: function () {
         this.setTitle(this.title);
@@ -81,27 +87,28 @@
         this.setUrl(this.url);
         this.setGenre(this.cat);
 
+        // TODO : create validateFormInputs to check if user has added this inputs
         if (this.getTitle && this.getRating && this.getGenre && this.getUrl) {
           console.log(
-            `Title = ${this.getTitle}, Rating= ${this.getRating}, Genre = ${this.getGenre}, Url = ${this.getUrl}`
+            `Title = ${ this.getTitle }, Rating= ${ this.getRating }, Genre = ${ this.getGenre }, Url = ${ this.getUrl }`
           );
-          eventBus.$emit("addMovie", {
+          eventBus.$emit('addMovie', {
             title: this.getTitle,
             rating: this.getRating,
             url: this.getUrl,
             genre: this.getGenre,
           });
         } else {
-          console.log("something went wrong");
+          console.log('something went wrong');
         }
       },
     },
     computed: {
       ...mapGetters({
-        getTitle: "form/getTitle",
-        getRating: "form/getRating",
-        getUrl: "form/getUrl",
-        getGenre: "form/getGenre",
+        getTitle: 'form/getTitle',
+        getRating: 'form/getRating',
+        getUrl: 'form/getUrl',
+        getGenre: 'form/getGenre',
       }),
     },
   };
@@ -148,6 +155,7 @@
     padding: 10px;
     cursor: pointer;
   }
+
   .submit:hover {
     padding: 15px;
     transition: 0.2s ease;

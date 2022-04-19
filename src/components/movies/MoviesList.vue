@@ -1,4 +1,5 @@
 <template>
+  <!-- TODO : Replace inline styling with classes -->
   <div class="Movies">
     <div>
       <h1 class="title">Movies List</h1>
@@ -14,6 +15,7 @@
     </div> -->
     <div class="checkBoxContainer" style="margin-bottom: 20px">
       <h3 class="genre">Genre</h3>
+      <!-- TODO : Create array of genres ( Drama, Action, etc) instead of writing statically, { id, type, value, label } -->
       <label for="drama">Drama</label>
       <input
         id="drama"
@@ -70,66 +72,68 @@
 </template>
 
 <script>
-  import Vue from "vue";
-  import axios from "axios";
-  import VueAxios from "vue-axios";
-  import { mapActions, mapGetters } from "vuex";
-  import { eventBus } from "../../main";
+  import Vue from 'vue';
+  import axios from 'axios';
+  import VueAxios from 'vue-axios';
+  import { mapActions, mapGetters } from 'vuex';
+  import { eventBus } from '../../main';
   // import AddMovie from "../movies/AddMovie.vue";
   Vue.use(VueAxios, axios);
 
   export default {
-    name: "MovieList",
+    name: 'MovieList',
     components: {
       // AddMovie,
     },
-    data() {
+    // TODO : remove unused data properties
+    data () {
       return {
-        users: "hello",
+        users: 'hello',
         list: [],
-        search: "",
+        search: '',
         selectedCategory: [],
+        // TODO : rename it to movies
         moviesArrayOfObject: [
           {
-            title: "Anand",
-            genre: "Drama",
+            title: 'Anand',
+            genre: 'Drama',
             rating: 8.9,
-            url: "https://images-na.ssl-images-amazon.com/images/M/MV5BMjE0Mzk3OTk2NF5BMl5BanBnXkFtZTgwMTQ1NDk5NTE@._V1_SY250_CR0,0,187,250_AL_.jpg",
+            url: 'https://images-na.ssl-images-amazon.com/images/M/MV5BMjE0Mzk3OTk2NF5BMl5BanBnXkFtZTgwMTQ1NDk5NTE@._V1_SY250_CR0,0,187,250_AL_.jpg',
           },
           {
-            title: "Dangal",
-            genre: "Action",
+            title: 'Dangal',
+            genre: 'Action',
             rating: 8.9,
-            url: "https://images-na.ssl-images-amazon.com/images/M/MV5BMTQ4MzQzMzM2Nl5BMl5BanBnXkFtZTgwMTQ1NzU3MDI@._V1_SY500_CR0,0,356,500_AL_.jpg",
+            url: 'https://images-na.ssl-images-amazon.com/images/M/MV5BMTQ4MzQzMzM2Nl5BMl5BanBnXkFtZTgwMTQ1NzU3MDI@._V1_SY500_CR0,0,356,500_AL_.jpg',
           },
           {
-            title: "Drishyam",
-            genre: "Drama",
+            title: 'Drishyam',
+            genre: 'Drama',
             rating: 8.9,
-            url: "https://images-na.ssl-images-amazon.com/images/M/MV5BYmY3MzYwMGUtOWMxYS00OGVhLWFjNmUtYzlkNGVmY2ZkMjA3XkEyXkFqcGdeQXVyMTExNDQ2MTI@._V1_SX330_CR0,0,330,432_AL_.jpg",
+            url: 'https://images-na.ssl-images-amazon.com/images/M/MV5BYmY3MzYwMGUtOWMxYS00OGVhLWFjNmUtYzlkNGVmY2ZkMjA3XkEyXkFqcGdeQXVyMTExNDQ2MTI@._V1_SX330_CR0,0,330,432_AL_.jpg',
           },
           {
-            title: "Nayakan",
-            genre: "Comedy",
+            title: 'Nayakan',
+            genre: 'Comedy',
             rating: 8.9,
-            url: "https://images-na.ssl-images-amazon.com/images/M/MV5BNTI2Zjc5ODMtNGE0NC00YjU5LTk0NjktZjU4ZDRlZDFkZWU0XkEyXkFqcGdeQXVyNjc5Mjg4Nzc@._V1_SY480_SX320_AL_.jpg",
+            url: 'https://images-na.ssl-images-amazon.com/images/M/MV5BNTI2Zjc5ODMtNGE0NC00YjU5LTk0NjktZjU4ZDRlZDFkZWU0XkEyXkFqcGdeQXVyNjc5Mjg4Nzc@._V1_SY480_SX320_AL_.jpg',
           },
         ],
       };
     },
     methods: {
-      ...mapActions({ setMovies: "movie/setMovies" }),
+      ...mapActions({ setMovies: 'movie/setMovies' }),
       setAltImage: (e) => {
         e.target.src =
-          "https://cdn.pixabay.com/photo/2016/03/31/18/36/cinema-1294496__340.png";
+          'https://cdn.pixabay.com/photo/2016/03/31/18/36/cinema-1294496__340.png';
       },
     },
-    mounted() {
+    mounted () {
       this.setMovies(this.moviesArrayOfObject);
       console.log(this.moviesArrayOfObject);
     },
     computed: {
-      ...mapGetters({ allMovies: "movie/allMovies" }),
+      ...mapGetters({ allMovies: 'movie/allMovies' }),
       // getfilteredList() {
       //   console.log(
       //     this.list.filter((item) => item.title.includes(this.search))
@@ -138,27 +142,29 @@
       //     item.title.toLowerCase().includes(this.search.toLowerCase())
       //   );
       // },
-      getFilteredCategory() {
+      getFilteredCategory () {
         return this.allMovies.filter((item) =>
           item.genre.includes(this.selectedCategory)
         );
       },
     },
     beforeMount: function () {
-      eventBus.$on("addMovie", ({ title, rating, url, genre }) => {
+      // TODO : use call back method
+      eventBus.$on('addMovie', ({ title, rating, url, genre }) => {
         // this.name = name;
         // this.type = type;
         // this.genre = genre;
 
         console.log(
-          "newObj",
+          'newObj',
           this.moviesArrayOfObject.push({ title, rating, url, genre })
         );
-        console.log("array of object--->", this.moviesArrayOfObject);
+        console.log('array of object--->', this.moviesArrayOfObject);
       });
     },
     beforeDestroy: function () {
-      eventBus.$off("addMovie");
+      // TODO : add the callback method that was use in $on
+      eventBus.$off('addMovie');
     },
   };
 </script>
@@ -183,6 +189,7 @@
     padding: 2em;
     font-size: 16px;
   }
+
   .table-content td:hover {
     background-color: black;
     color: white;
@@ -229,6 +236,7 @@
     padding: 20px;
     transition: 0.3s ease;
   }
+
   /*.genre{*/
   /*  display: flex;*/
   /*  position:absolute;*/
