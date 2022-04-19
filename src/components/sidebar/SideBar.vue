@@ -1,122 +1,66 @@
-<script>
-  //TODO : Follow the structure template, script, styles.
-  //TODO : Remove unused props and mounted.
-  import { mapActions, mapGetters } from 'vuex';
-
-  export default {
-    name: 'SideBar',
-    props: {},
-    // TODO: create routerlinks data property and render links dynamically using routerlinks
-    data () {
-      return {
-        active: false,
-        email: '',
-        password: '',
-        remember: false,
-        Name: '',
-        tab: '',
-        cat: '',
-        // routerLinks: [
-        //   {
-        //     name: '',
-        //     label: 'Home',
-        //     class: '',
-        //     link: '/',
-        //   },
-        // ]
-      };
-    },
-    methods: {
-      // TODO : refactor this using namespacing
-      ...mapActions(['setName', 'setType', 'setGenre']),
-      // ...mapActions({
-      //   setName: 'filter/setBooks'
-      // }),
-
-      // TODO : change method name to addNewMovie and onclick add this new movie to moviesList
-      handleClick: function () {
-        this.setName(this.Name);
-        this.setType(this.tab);
-        this.setGenre(this.cat);
-        console.log(this.getName);
-        console.log(this.getType);
-        console.log(this.getGenre);
-      },
-    },
-    computed: {
-      // TODO : refactor this using namespacing
-      ...mapGetters(['getName', 'getType', 'getGenre']),
-    },
-    mounted: {},
-  };
-</script>
-
 <template>
   <div class="sidebar">
     <div class="sidebar-title">
       <h1>Flix</h1>
     </div>
+    <!-- {{ JSON.stringify(getType) }} -->
     <div id="sidebar-list">
-      <router-link class="link" to="/">Home</router-link>
-      <router-link class="link" to="/movies">Movies</router-link>
+      <router-link
+        v-for="link in routerLinks"
+        :class="link.class"
+        :to="link.link"
+        :key="link.name"
+        >{{ link.name }}</router-link
+      >
+      <!-- <router-link class="link" to="/movies">Movies</router-link>
       <router-link class="link" to="/series">Series</router-link>
-      <router-link class="link" to="/books">Books</router-link>
+      <router-link class="link" to="/books">Books</router-link> -->
     </div>
     <!-- <router-view /> -->
-    <!-- TODO:   Create another component for form -->
     <div class="sidebarAdd">
       <template>
         <div class="center">
-          <vs-button @click="active = !active" id="dialogBtn">
-            Add Option
-          </vs-button>
-          <vs-dialog v-model="active">
-            <template #header>
-              <h4 class="not-margin">
-                <b>Add to the list</b>
-              </h4>
-            </template>
-
-            <div class="form">
-              <label for="nameInput" class="label">Name </label>
-              <input
-                id="nameInput"
-                type="text"
-                v-model="Name"
-                placeholder="Category name"
-              />
-
-              <br />
-              <br />
-              <!--   TODO: Create an array for option of types and render here-->
-              <label class="label">Type</label>
-              <select v-model="tab">
-                <option value="Movie">Movie</option>
-                <option value="Series">Series</option>
-                <option value="Books">Books</option>
-              </select>
-              <br />
-              <br />
-              <!-- TODO: Create an array for option of Genres and render here -->
-              <label class="label">Genre</label>
-              <select v-model="cat">
-                <option value="Action">Action</option>
-                <option value="Comedy">Comedy</option>
-                <option value="Drama">Drama</option>
-              </select>
-            </div>
-            <input
-              class="submit"
-              type="submit"
-              value="Submit"
-              @click="handleClick"
-            />
-          </vs-dialog>
+          <add-form />
         </div>
       </template>
     </div>
   </div>
 </template>
+
+<script>
+  import AddForm from "../AddForm.vue";
+
+  export default {
+    components: { AddForm },
+    name: "SideBar",
+    data() {
+      return {
+        routerLinks: [
+          {
+            name: "Home",
+            class: "link",
+            link: "/",
+          },
+          {
+            name: "Movies",
+            class: "link",
+            link: "/movies",
+          },
+          {
+            name: "Series",
+            class: "link",
+            link: "/series",
+          },
+          {
+            name: "Books",
+            class: "link",
+            link: "/books",
+          },
+        ],
+      };
+    },
+  };
+</script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
@@ -231,7 +175,6 @@
     padding: 10px;
     cursor: pointer;
   }
-
   .submit:hover {
     padding: 15px;
     transition: 0.2s ease;

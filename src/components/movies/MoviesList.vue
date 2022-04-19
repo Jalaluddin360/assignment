@@ -2,7 +2,7 @@
   <div class="Movies">
     <div>
       <h1 class="title">Movies List</h1>
-      <!-- {{ JSON.stringify(allBooks) }} -->
+      <!-- {{ JSON.stringify(getMovies) }} -->
     </div>
     <!-- <div class="addMovie">
       <button>
@@ -70,38 +70,37 @@
 </template>
 
 <script>
-  import Vue from 'vue';
-  import axios from 'axios';
-  import VueAxios from 'vue-axios';
-  import { mapActions, mapGetters } from 'vuex';
+  import Vue from "vue";
+  import axios from "axios";
+  import VueAxios from "vue-axios";
+  import { mapActions, mapGetters } from "vuex";
   // import AddMovie from "../movies/AddMovie.vue";
   Vue.use(VueAxios, axios);
 
   export default {
-    name: 'MovieList',
+    name: "MovieList",
     components: {
       // AddMovie,
     },
-    //TODO : create json of movies list and render it
-    data () {
+    data() {
       return {
-        users: 'hello',
+        users: "hello",
         list: [],
-        search: '',
+        search: "",
         selectedCategory: [],
       };
     },
     methods: {
-      ...mapActions(['setMovies']),
+      ...mapActions({ setMovies: "movie/setMovies" }),
       setAltImage: (e) => {
         e.target.src =
-          'https://cdn.pixabay.com/photo/2016/03/31/18/36/cinema-1294496__340.png';
+          "https://cdn.pixabay.com/photo/2016/03/31/18/36/cinema-1294496__340.png";
       },
     },
-    mounted () {
+    mounted() {
       Vue.axios
         .get(
-          'https://raw.githubusercontent.com/FEND16/movie-json-data/master/json/top-rated-indian-movies-01.json'
+          "https://raw.githubusercontent.com/FEND16/movie-json-data/master/json/top-rated-indian-movies-01.json"
         )
         .then((res) => {
           this.setMovies(res.data);
@@ -109,8 +108,8 @@
         });
     },
     computed: {
-      ...mapGetters(['allMovies', 'allBooks']),
-      getfilteredList () {
+      ...mapGetters({ allMovies: "movie/allMovies" }),
+      getfilteredList() {
         console.log(
           this.list.filter((item) => item.title.includes(this.search))
         );
@@ -118,7 +117,7 @@
           item.title.toLowerCase().includes(this.search.toLowerCase())
         );
       },
-      getFilteredCategory () {
+      getFilteredCategory() {
         return this.allMovies.filter((item) =>
           item.genres[0].includes(this.selectedCategory)
         );
@@ -148,7 +147,6 @@
     padding: 2em;
     font-size: 16px;
   }
-
   .table-content td:hover {
     background-color: black;
     color: white;
@@ -195,7 +193,6 @@
     padding: 20px;
     transition: 0.3s ease;
   }
-
   /*.genre{*/
   /*  display: flex;*/
   /*  position:absolute;*/
