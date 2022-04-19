@@ -4,7 +4,7 @@
       <h1>Books list</h1>
       <!-- {{ JSON.stringify(getBooks) }} -->
     </div>
-    {{ count }}
+
     <div class="cardContainer">
       <!-- TODO : Remove v-bind -->
       <vs-card
@@ -26,7 +26,7 @@
         <template #text>
           <!-- TODO : Make method getDescription instead of item.shortDescription.slice(0, 100).concat('...') -->
           <p style="font-size: 14px; font-weight: 400">
-            {{ item.shortDescription.slice(0, 100).concat('...') }}
+            {{ item.shortDescription.slice(0, 100).concat("...") }}
           </p>
         </template>
         <!--  TODO : Dont use inline styling use classes-->
@@ -47,13 +47,13 @@
 </template>
 
 <script>
-  import axios from 'axios';
-  import { mapActions, mapGetters } from 'vuex';
+  import axios from "axios";
+  import { mapActions, mapGetters } from "vuex";
 
   // data, computed, watch, lifecycle hooks, method
   export default {
-    name: 'BookList',
-    data () {
+    name: "BookList",
+    data() {
       return {
         list: [],
         // TODO : remove unused data properties
@@ -61,11 +61,11 @@
       };
     },
 
-    mounted () {
+    mounted() {
       // TODO : Create one method getBooks/fetchBooks and add api call in that method
       axios
         .get(
-          'https://raw.githubusercontent.com/bvaughn/infinite-list-reflow-examples/master/books.json'
+          "https://raw.githubusercontent.com/bvaughn/infinite-list-reflow-examples/master/books.json"
         )
         .then((res) => {
           console.log(res.data);
@@ -73,12 +73,12 @@
         });
     },
     methods: {
-      ...mapActions({ setBooks: 'book/setBooks' }),
+      ...mapActions({ setBooks: "book/setBooks" }),
 
       // TODO : change method name to setDefaultImage
       setAltImage: (e) => {
         e.target.src =
-          'https://cdn.pixabay.com/photo/2016/03/31/18/36/cinema-1294496__340.png';
+          "https://cdn.pixabay.com/photo/2016/03/31/18/36/cinema-1294496__340.png";
       },
 
       // TODO : remove unused methods
@@ -93,7 +93,7 @@
       },
     },
     // TODO : move computed before methods
-    computed: mapGetters({ getBooks: 'book/allBooks' }),
+    computed: mapGetters({ getBooks: "book/allBooks" }),
   };
 </script>
 

@@ -1,7 +1,9 @@
 <template>
   <div>
     <!-- TODO : write method toggleDialogBox and change active in that method -->
-    <vs-button @click="active = !active" id="dialogBtn"> Add Option</vs-button>
+    <vs-button @click.once="toggleDialogBox()" id="dialogBtn">
+      Add Option</vs-button
+    >
     <vs-dialog v-model="active">
       <!-- TODO: Remove redundant template tags -->
       <template #header>
@@ -12,9 +14,8 @@
       </template>
 
       <div class="form">
-        <label for="nameInput" class="label">Title </label>
+        <label class="label">Title </label>
         <input
-          id="nameInput"
           type="text"
           v-model="title"
           placeholder="Movie title name"
@@ -27,7 +28,6 @@
         <label class="label">Rating</label>
         <!-- TODO : use unique ID -->
         <input
-          id="ratingINput"
           type="number"
           v-model="rating"
           placeholder="Movie Rating"
@@ -37,7 +37,6 @@
         <br />
         <label class="label">Poster URL</label>
         <input
-          id="ratingINput"
           type="text"
           v-model="url"
           placeholder="Movie Poster Url"
@@ -46,69 +45,101 @@
         <br />
         <br />
         <!--  TODO : Create generes array rather than writing statically -->
-        <label class="label"> Genre</label>
-        <select v-model="cat" required>
-          <option value="Action">Action</option>
-          <option value="Comedy">Comedy</option>
-          <option value="Drama">Drama</option>
-        </select>
+        <div>
+          <label class="label"> Genre</label>
+          <select v-model="category" required>
+            <option
+              v-for="optionValue in optionValues"
+              :key="optionValue"
+              :value="optionValue"
+            >
+              {{ optionValue }}
+            </option>
+          </select>
+        </div>
       </div>
       <input class="submit" type="submit" value="Submit" @click="addMovie" />
+      <br />
+      <br />
+      <span
+        class="errorAlert"
+        v-for="(error, index) in errors"
+        :key="error[index]"
+        >{{ error }}</span
+      >
     </vs-dialog>
   </div>
 </template>
 <script>
-  import { mapActions, mapGetters } from 'vuex';
+  import { mapActions, mapGetters } from "vuex";
 
-  import { eventBus } from '../main';
+  import { eventBus } from "../main";
 
   export default {
-    name: 'AddForm',
-    data () {
+    name: "AddForm",
+    data() {
       return {
+        optionValues: ["Action", "Comedy", "Drama"],
         active: false,
-        title: '',
-        rating: '',
-        url: '',
+        title: "",
+        rating: "",
+        url: "",
+        errors: [],
+
         // TODO : change cat to category
-        cat: '',
+        category: "",
       };
     },
     methods: {
       ...mapActions({
-        setTitle: 'form/setTitle',
-        setRating: 'form/setRating',
-        setGenre: 'form/setGenre',
-        setUrl: 'form/setUrl',
+        setTitle: "form/setTitle",
+        setRating: "form/setRating",
+        setGenre: "form/setGenre",
+        setUrl: "form/setUrl",
       }),
+      toggleDialogBox: function () {
+        this.active = !this.active;
+      },
       addMovie: function () {
         this.setTitle(this.title);
         this.setRating(this.rating);
         this.setUrl(this.url);
-        this.setGenre(this.cat);
+        this.setGenre(this.category);
 
-        // TODO : create validateFormInputs to check if user has added this inputs
+        // TODO : create validateFormInputs to check if user has added this
+
+        //form validation
+
+        if (!this.getTitle) {
+          this.errors.push("Title is required!");
+        } else if (!this.getRating) {
+          this.errors.push("Rating is required!");
+        } else if (!this.getUrl) {
+          this.errors.push("URL is required!");
+        } else if (!this.getGenre) {
+          this.errors.push("Genre is required!");
+        }
+
+        //handling submit button
         if (this.getTitle && this.getRating && this.getGenre && this.getUrl) {
           console.log(
-            `Title = ${ this.getTitle }, Rating= ${ this.getRating }, Genre = ${ this.getGenre }, Url = ${ this.getUrl }`
+            `Title = ${this.getTitle}, Rating= ${this.getRating}, Genre = ${this.getGenre}, Url = ${this.getUrl}`
           );
-          eventBus.$emit('addMovie', {
+          eventBus.$emit("addMovie", {
             title: this.getTitle,
             rating: this.getRating,
             url: this.getUrl,
             genre: this.getGenre,
           });
-        } else {
-          console.log('something went wrong');
         }
       },
     },
     computed: {
       ...mapGetters({
-        getTitle: 'form/getTitle',
-        getRating: 'form/getRating',
-        getUrl: 'form/getUrl',
-        getGenre: 'form/getGenre',
+        getTitle: "form/getTitle",
+        getRating: "form/getRating",
+        getUrl: "form/getUrl",
+        getGenre: "form/getGenre",
       }),
     },
   };
@@ -159,5 +190,15 @@
   .submit:hover {
     padding: 15px;
     transition: 0.2s ease;
+  }
+
+  .errorAlert {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgb(224, 4, 4);
+    color: white;
+    font-weight: bold;
+    margin: 0;
+    border: none;
   }
 </style>
