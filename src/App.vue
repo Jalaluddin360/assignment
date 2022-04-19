@@ -12,8 +12,8 @@
       SideBar,
     },
   };
-  let loc = window.location.href;
-  console.log(loc);
+
+
 </script>
 
 <style>

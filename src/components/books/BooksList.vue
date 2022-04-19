@@ -7,37 +7,23 @@
 
     <div class="cardContainer">
       <!-- TODO : Remove v-bind -->
-      <vs-card
-        class="card"
-        v-for="(item, index) in getBooks"
-        v-bind:key="index"
-      >
+      <vs-card class="card" v-for="(item, index) in getBooks" :key="index">
         <template #title>
           <h3>{{ item.title }}</h3>
         </template>
         <template #img>
-          <img
-            style="background-size: cover"
-            :src="item.thumbnailUrl"
-            alt="image"
-            @error="setAltImage"
-          />
+          <img :src="item.thumbnailUrl" alt="image" @error="setDefaultImage" />
         </template>
         <template #text>
           <!-- TODO : Make method getDescription instead of item.shortDescription.slice(0, 100).concat('...') -->
-          <p style="font-size: 14px; font-weight: 400">
-            {{ item.shortDescription.slice(0, 100).concat("...") }}
+          <p>
+            {{ getBookShortDescription(item) }}
           </p>
         </template>
+
         <!--  TODO : Dont use inline styling use classes-->
         <template #interactions>
-          <vs-button
-            style="background: red; color: white"
-            class="btn-chat"
-            shadow
-            primary
-            @click="handleDelete(index)"
-          >
+          <vs-button class="btn-chat" shadow primary @click="deleteBook(index)">
             Delete
           </vs-button>
         </template>
@@ -57,10 +43,9 @@
       return {
         list: [],
         // TODO : remove unused data properties
-        loading: false,
       };
     },
-
+    computed: mapGetters({ getBooks: "book/allBooks" }),
     mounted() {
       // TODO : Create one method getBooks/fetchBooks and add api call in that method
       axios
@@ -76,24 +61,23 @@
       ...mapActions({ setBooks: "book/setBooks" }),
 
       // TODO : change method name to setDefaultImage
-      setAltImage: (e) => {
+      setDefaultImage: (e) => {
         e.target.src =
           "https://cdn.pixabay.com/photo/2016/03/31/18/36/cinema-1294496__340.png";
       },
 
       // TODO : remove unused methods
-      handleFav: function () {
-        //
-      },
 
+      getBookShortDescription(book) {
+        return book.shortDescription.slice(0, 100).concat("...");
+      },
       // TODO : rename this method to deleteBook
-      handleDelete: function (index) {
+      deleteBook: function (index) {
         console.log(index);
         this.getBooks.splice(index, 1);
       },
     },
     // TODO : move computed before methods
-    computed: mapGetters({ getBooks: "book/allBooks" }),
   };
 </script>
 
@@ -128,5 +112,14 @@
 
   .card {
     margin: 30px;
+  }
+  p {
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .btn-chat {
+    background-color: red;
+    color: white;
   }
 </style>

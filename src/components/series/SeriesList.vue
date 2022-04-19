@@ -4,19 +4,19 @@
       <h1>Books list</h1>
       {{ JSON.stringify(allFavourites) }}
     </div>
-    {{ count }}
+
     <div class="cardContainer">
-      <vs-card class="card" v-for="(item, index) in books" v-bind:key="index">
+      <vs-card class="card" v-for="(book, index) in books" v-bind:key="index">
         <template #title>
-          <h3>{{ item.title }}</h3>
+          <h3>{{ book.title }}</h3>
         </template>
         <template #img>
-          <img :src="item['thumbnailUrl']" alt="image" />
+          <img :src="book['thumbnailUrl']" alt="image" />
         </template>
         <template #text>
           <!-- TODO : create method-->
           <p class="paragraph">
-            {{ item.shortDescription.slice(0, 100).concat("...") }}
+            {{ getBookShortDescription(book) }}
           </p>
         </template>
         <template #interactions>
@@ -202,6 +202,9 @@
         ],
       };
     },
+    computed: {
+      ...mapGetters(["allFavourites"]),
+    },
     methods: {
       ...mapActions({
         setFavourites: "setFavourites",
@@ -209,6 +212,9 @@
         getType: "form/getType",
         getGenre: "form/getGenre",
       }),
+      getBookShortDescription(book) {
+        return book.shortDescription.slice(0, 100).concat("...");
+      },
       // TODO : rename it to addToFavourites
       addToFavourites: function (index) {
         let book = [];
@@ -219,7 +225,6 @@
         console.log("boook===>", book);
       },
     },
-    computed: mapGetters(["allFavourites"]),
   };
 </script>
 <style scoped>

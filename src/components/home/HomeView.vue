@@ -35,7 +35,7 @@
           </template>
           <!-- TODO : use getShortText method which should reduce text to 100 words instead of computing in template -->
           <template #text>
-            <p>{{ book.shortDescription.slice(0, 100).concat("...") }}</p>
+            <p>{{ getBookShortDescription(book) }}</p>
           </template>
           <template #interactions></template>
         </vs-card>
@@ -61,6 +61,9 @@
       getDefaultImage: (e) => {
         e.target.src =
           "https://cdn.pixabay.com/photo/2016/03/31/18/36/cinema-1294496__340.png";
+      },
+      getBookShortDescription(book) {
+        return book.shortDescription.slice(0, 100).concat("...");
       },
     },
   };

@@ -90,6 +90,14 @@
         category: "",
       };
     },
+    computed: {
+      ...mapGetters({
+        getTitle: "form/getTitle",
+        getRating: "form/getRating",
+        getUrl: "form/getUrl",
+        getGenre: "form/getGenre",
+      }),
+    },
     methods: {
       ...mapActions({
         setTitle: "form/setTitle",
@@ -133,14 +141,6 @@
           });
         }
       },
-    },
-    computed: {
-      ...mapGetters({
-        getTitle: "form/getTitle",
-        getRating: "form/getRating",
-        getUrl: "form/getUrl",
-        getGenre: "form/getGenre",
-      }),
     },
   };
 </script>

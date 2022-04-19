@@ -41,7 +41,7 @@
               v-bind:src="item.url"
               alt="Not found"
               :style="imageStyle"
-              @error="setAltImage"
+              @error="setDefaultImage"
             />
           </td>
           <td class="title">{{ item.title }}</td>
@@ -115,21 +115,6 @@
         ],
       };
     },
-    methods: {
-      ...mapActions({ setMovies: "movie/setMovies" }),
-      setAltImage: (e) => {
-        e.target.src =
-          "https://cdn.pixabay.com/photo/2016/03/31/18/36/cinema-1294496__340.png";
-      },
-      addMovie: function ({ title, rating, url, genre }) {
-        console.log("newObj", this.movies.push({ title, rating, url, genre }));
-        console.log("array of object--->", this.movies);
-      },
-    },
-    mounted() {
-      this.setMovies(this.movies);
-      console.log(this.movies);
-    },
     computed: {
       ...mapGetters({ allMovies: "movie/allMovies" }),
       // getfilteredList() {
@@ -137,7 +122,13 @@
       //     this.list.filter((item) => item.title.includes(this.search))
       //   );
       //   return this.list.filter((item) =>
+      ///   console.log(
+      //     this.list.filter((item) => item.title.includes(this.search))
+      //   );
+      //   return this.list.filter((item) =>
       //     item.title.toLowerCase().includes(this.search.toLowerCase())
+      //   );
+      // },/     item.title.toLowerCase().includes(this.search.toLowerCase())
       //   );
       // },
       getFilteredCategory() {
@@ -146,6 +137,11 @@
         );
       },
     },
+    mounted() {
+      this.setMovies(this.movies);
+      console.log(this.movies);
+    },
+
     beforeMount: function () {
       // TODO : use call back method
       eventBus.$on("addMovie", this.addMovie);
@@ -153,6 +149,17 @@
     beforeDestroy: function () {
       // TODO : add the callback method that was use in $on
       eventBus.$off("addMovie", this.addMovie);
+    },
+    methods: {
+      ...mapActions({ setMovies: "movie/setMovies" }),
+      setDefaultImage: (e) => {
+        e.target.src =
+          "https://cdn.pixabay.com/photo/2016/03/31/18/36/cinema-1294496__340.png";
+      },
+      addMovie: function ({ title, rating, url, genre }) {
+        console.log("newObj", this.movies.push({ title, rating, url, genre }));
+        console.log("array of object--->", this.movies);
+      },
     },
   };
 </script>
