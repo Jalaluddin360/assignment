@@ -75,6 +75,7 @@
   import VueAxios from "vue-axios";
   import { mapActions, mapGetters } from "vuex";
   import { eventBus } from "../../main";
+
   // import AddMovie from "../movies/AddMovie.vue";
   Vue.use(VueAxios, axios);
 
@@ -130,6 +131,7 @@
     },
     computed: {
       ...mapGetters({ allMovies: "movie/allMovies" }),
+
       // getfilteredList() {
       //   console.log(
       //     this.list.filter((item) => item.title.includes(this.search))
