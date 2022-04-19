@@ -52,7 +52,7 @@
           <td>
             <img
               id="image"
-              v-bind:src="item.posterurl"
+              v-bind:src="item.url"
               alt="Not found"
               height="100px"
               width="auto"
@@ -62,7 +62,7 @@
           </td>
           <td class="title">{{ item.title }}</td>
 
-          <td>{{ item.imdbRating }}</td>
+          <td>{{ item.rating }}</td>
         </tr>
       </table>
     </div>
@@ -74,6 +74,7 @@
   import axios from "axios";
   import VueAxios from "vue-axios";
   import { mapActions, mapGetters } from "vuex";
+  import { eventBus } from "../../main";
   // import AddMovie from "../movies/AddMovie.vue";
   Vue.use(VueAxios, axios);
 
@@ -88,6 +89,32 @@
         list: [],
         search: "",
         selectedCategory: [],
+        moviesArrayOfObject: [
+          {
+            title: "Anand",
+            genre: "Drama",
+            rating: 8.9,
+            url: "https://images-na.ssl-images-amazon.com/images/M/MV5BMjE0Mzk3OTk2NF5BMl5BanBnXkFtZTgwMTQ1NDk5NTE@._V1_SY250_CR0,0,187,250_AL_.jpg",
+          },
+          {
+            title: "Dangal",
+            genre: "Action",
+            rating: 8.9,
+            url: "https://images-na.ssl-images-amazon.com/images/M/MV5BMTQ4MzQzMzM2Nl5BMl5BanBnXkFtZTgwMTQ1NzU3MDI@._V1_SY500_CR0,0,356,500_AL_.jpg",
+          },
+          {
+            title: "Drishyam",
+            genre: "Drama",
+            rating: 8.9,
+            url: "https://images-na.ssl-images-amazon.com/images/M/MV5BYmY3MzYwMGUtOWMxYS00OGVhLWFjNmUtYzlkNGVmY2ZkMjA3XkEyXkFqcGdeQXVyMTExNDQ2MTI@._V1_SX330_CR0,0,330,432_AL_.jpg",
+          },
+          {
+            title: "Nayakan",
+            genre: "Comedy",
+            rating: 8.9,
+            url: "https://images-na.ssl-images-amazon.com/images/M/MV5BNTI2Zjc5ODMtNGE0NC00YjU5LTk0NjktZjU4ZDRlZDFkZWU0XkEyXkFqcGdeQXVyNjc5Mjg4Nzc@._V1_SY480_SX320_AL_.jpg",
+          },
+        ],
       };
     },
     methods: {
@@ -98,32 +125,41 @@
       },
     },
     mounted() {
-      Vue.axios
-        .get(
-          "https://raw.githubusercontent.com/FEND16/movie-json-data/master/json/top-rated-indian-movies-01.json"
-        )
-        .then((res) => {
-          this.setMovies(res.data);
-          console.log(res.data);
-        });
+      this.setMovies(this.moviesArrayOfObject);
+      console.log(this.moviesArrayOfObject);
     },
     computed: {
       ...mapGetters({ allMovies: "movie/allMovies" }),
-      getfilteredList() {
-        console.log(
-          this.list.filter((item) => item.title.includes(this.search))
-        );
-        return this.list.filter((item) =>
-          item.title.toLowerCase().includes(this.search.toLowerCase())
-        );
-      },
+      // getfilteredList() {
+      //   console.log(
+      //     this.list.filter((item) => item.title.includes(this.search))
+      //   );
+      //   return this.list.filter((item) =>
+      //     item.title.toLowerCase().includes(this.search.toLowerCase())
+      //   );
+      // },
       getFilteredCategory() {
         return this.allMovies.filter((item) =>
-          item.genres[0].includes(this.selectedCategory)
+          item.genre.includes(this.selectedCategory)
         );
       },
     },
-    watch: {},
+    beforeMount: function () {
+      eventBus.$on("addMovie", ({ title, rating, url, genre }) => {
+        // this.name = name;
+        // this.type = type;
+        // this.genre = genre;
+
+        console.log(
+          "newObj",
+          this.moviesArrayOfObject.push({ title, rating, url, genre })
+        );
+        console.log("array of object--->", this.moviesArrayOfObject);
+      });
+    },
+    beforeDestroy: function () {
+      eventBus.$off("addMovie");
+    },
   };
 </script>
 

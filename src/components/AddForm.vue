@@ -5,27 +5,40 @@
       <template #header>
         <h4 class="not-margin">
           <b>Add to the list</b>
+          <!-- {{ `Title=${title},Url=${url},Rating=${rating},Category=${cat}` }} -->
         </h4>
       </template>
 
       <div class="form">
-        <label for="nameInput" class="label">Name </label>
+        <label for="nameInput" class="label">Title </label>
         <input
           id="nameInput"
           type="text"
-          v-model="Name"
-          placeholder="Category name"
+          v-model="title"
+          placeholder="Movie title name"
           required
         />
 
         <br />
         <br />
-        <label class="label">Type</label>
-        <select v-model="tab" required>
-          <option value="Movie">Movie</option>
-          <option value="Series">Series</option>
-          <option value="Books">Books</option>
-        </select>
+        <label class="label">Rating</label>
+        <input
+          id="ratingINput"
+          type="text"
+          v-model="rating"
+          placeholder="Movie Rating"
+          required
+        />
+        <br />
+        <br />
+        <label class="label">Poster URL</label>
+        <input
+          id="ratingINput"
+          type="text"
+          v-model="url"
+          placeholder="Movie Poster Url"
+          required
+        />
         <br />
         <br />
         <label class="label"> Genre</label>
@@ -41,6 +54,7 @@
 </template>
 <script>
   import { mapActions, mapGetters } from "vuex";
+
   import { eventBus } from "../main";
 
   export default {
@@ -48,32 +62,33 @@
     data() {
       return {
         active: false,
-        Name: "",
-        tab: "",
+        title: "",
+        rating: "",
+        url: "",
         cat: "",
       };
     },
     methods: {
       ...mapActions({
-        setName: "form/setName",
-        setType: "form/setType",
+        setTitle: "form/setTitle",
+        setRating: "form/setRating",
         setGenre: "form/setGenre",
+        setUrl: "form/setUrl",
       }),
       addMovie: function () {
-        this.setName(this.Name);
-        this.setType(this.tab);
+        this.setTitle(this.title);
+        this.setRating(this.rating);
+        this.setUrl(this.url);
         this.setGenre(this.cat);
 
-        // console.log(this.getName);
-        // console.log(this.getType);
-        // console.log(this.getGenre);
-        if (this.getName && this.getType && this.getGenre) {
+        if (this.getTitle && this.getRating && this.getGenre && this.getUrl) {
           console.log(
-            `Name = ${this.getName}, Type= ${this.getType}, Genre = ${this.getGenre}`
+            `Title = ${this.getTitle}, Rating= ${this.getRating}, Genre = ${this.getGenre}, Url = ${this.getUrl}`
           );
-          eventBus.$emit("add", {
-            name: this.getName,
-            type: this.getType,
+          eventBus.$emit("addMovie", {
+            title: this.getTitle,
+            rating: this.getRating,
+            url: this.getUrl,
             genre: this.getGenre,
           });
         } else {
@@ -83,8 +98,9 @@
     },
     computed: {
       ...mapGetters({
-        getName: "form/getName",
-        getType: "form/getType",
+        getTitle: "form/getTitle",
+        getRating: "form/getRating",
+        getUrl: "form/getUrl",
         getGenre: "form/getGenre",
       }),
     },

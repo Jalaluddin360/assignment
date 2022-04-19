@@ -2,30 +2,36 @@ export default {
   namespaced: true,
   state: {
     form: {
-      name: "",
-      type: "",
+      title: "",
+      rating: "",
+      url: "",
       genre: "",
     },
   },
   getters: {
-    getName: (state) => state.form.name,
-    getType: (state) => state.form.type,
+    getTitle: (state) => state.form.title,
+    getRating: (state) => state.form.rating,
+    getUrl: (state) => state.form.url,
     getGenre: (state) => state.form.genre,
   },
   actions: {
-    setName: function ({ commit }, name) {
-      commit("SET_NAME", name);
+    setTitle: function ({ commit }, title) {
+      commit("SET_TITLE", title);
     },
-    setType: function ({ commit }, type) {
-      commit("SET_TYPE", type);
+    setRating: function ({ commit }, rating) {
+      commit("SET_RATING", rating);
+    },
+    setUrl: function ({ commit }, url) {
+      commit("SET_URL", url);
     },
     setGenre: function ({ commit }, genre) {
       commit("SET_GENRE", genre);
     },
   },
   mutations: {
-    SET_NAME: (state, name) => (state.form.name = name),
-    SET_TYPE: (state, type) => (state.form.type = type),
+    SET_TITLE: (state, title) => (state.form.title = title),
+    SET_RATING: (state, rating) => (state.form.rating = rating),
+    SET_URL: (state, url) => (state.form.url = url),
     SET_GENRE: (state, genre) => (state.form.genre = genre),
   },
 };
