@@ -222,7 +222,6 @@
         obj.fav = true;
         book.push(obj);
         this.setFavourites(book);
-        console.log("boook===>", book);
       },
     },
   };

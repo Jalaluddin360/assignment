@@ -130,9 +130,6 @@
 
         //handling submit button
         if (this.getTitle && this.getRating && this.getGenre && this.getUrl) {
-          console.log(
-            `Title = ${this.getTitle}, Rating= ${this.getRating}, Genre = ${this.getGenre}, Url = ${this.getUrl}`
-          );
           eventBus.$emit("addMovie", {
             title: this.getTitle,
             rating: this.getRating,

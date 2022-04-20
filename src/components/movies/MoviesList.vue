@@ -139,7 +139,6 @@
     },
     mounted() {
       this.setMovies(this.movies);
-      console.log(this.movies);
     },
 
     beforeMount: function () {
@@ -157,8 +156,7 @@
           "https://cdn.pixabay.com/photo/2016/03/31/18/36/cinema-1294496__340.png";
       },
       addMovie: function ({ title, rating, url, genre }) {
-        console.log("newObj", this.movies.push({ title, rating, url, genre }));
-        console.log("array of object--->", this.movies);
+        this.movies.push({ title, rating, url, genre });
       },
     },
   };

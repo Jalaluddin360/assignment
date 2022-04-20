@@ -66,7 +66,6 @@
       },
       // TODO : rename this method to deleteBook
       deleteBook: function (index) {
-        console.log(index);
         this.getBooks.splice(index, 1);
       },
       fetchBooks: function () {
@@ -75,7 +74,6 @@
             "https://raw.githubusercontent.com/bvaughn/infinite-list-reflow-examples/master/books.json"
           )
           .then((res) => {
-            console.log(res.data);
             this.setBooks(res.data);
           });
       },
