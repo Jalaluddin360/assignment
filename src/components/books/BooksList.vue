@@ -47,15 +47,8 @@
     },
     computed: mapGetters({ getBooks: "book/allBooks" }),
     mounted() {
+      this.fetchBooks();
       // TODO : Create one method getBooks/fetchBooks and add api call in that method
-      axios
-        .get(
-          "https://raw.githubusercontent.com/bvaughn/infinite-list-reflow-examples/master/books.json"
-        )
-        .then((res) => {
-          console.log(res.data);
-          this.setBooks(res.data);
-        });
     },
     methods: {
       ...mapActions({ setBooks: "book/setBooks" }),
@@ -75,6 +68,16 @@
       deleteBook: function (index) {
         console.log(index);
         this.getBooks.splice(index, 1);
+      },
+      fetchBooks: function () {
+        axios
+          .get(
+            "https://raw.githubusercontent.com/bvaughn/infinite-list-reflow-examples/master/books.json"
+          )
+          .then((res) => {
+            console.log(res.data);
+            this.setBooks(res.data);
+          });
       },
     },
     // TODO : move computed before methods
