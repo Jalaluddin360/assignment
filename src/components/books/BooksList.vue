@@ -17,7 +17,7 @@
         <template #text>
           <!-- TODO : Make method getDescription instead of item.shortDescription.slice(0, 100).concat('...') -->
           <p>
-            {{ getBookShortDescription(item) }}
+            {{ getShortDescription(item) }}
           </p>
         </template>
 
@@ -61,7 +61,7 @@
 
       // TODO : remove unused methods
 
-      getBookShortDescription(book) {
+      getShortDescription(book) {
         return book.shortDescription.slice(0, 100).concat("...");
       },
       // TODO : rename this method to deleteBook

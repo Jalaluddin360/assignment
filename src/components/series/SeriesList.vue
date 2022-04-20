@@ -16,7 +16,7 @@
         <template #text>
           <!-- TODO : create method-->
           <p class="paragraph">
-            {{ getBookShortDescription(book) }}
+            {{ getShortDescription(book) }}
           </p>
         </template>
         <template #interactions>
@@ -212,7 +212,7 @@
         getType: "form/getType",
         getGenre: "form/getGenre",
       }),
-      getBookShortDescription(book) {
+      getShortDescription(book) {
         return book.shortDescription.slice(0, 100).concat("...");
       },
       // TODO : rename it to addToFavourites

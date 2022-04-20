@@ -21,7 +21,7 @@
       <h1>Books</h1>
       <!-- {{ JSON.stringify(allMovies) }} -->
       <vs-card-group>
-        <vs-card v-for="book in allBooks" v-bind:key="book.id">
+        <vs-card v-for="book in allBooks" :key="book.id">
           <template #title>
             <h3>{{ book["title"] }}</h3>
           </template>
@@ -35,7 +35,7 @@
           </template>
           <!-- TODO : use getShortText method which should reduce text to 100 words instead of computing in template -->
           <template #text>
-            <p>{{ getBookShortDescription(book) }}</p>
+            <p>{{ getShortDescription(book) }}</p>
           </template>
           <template #interactions></template>
         </vs-card>
@@ -62,7 +62,7 @@
         e.target.src =
           "https://cdn.pixabay.com/photo/2016/03/31/18/36/cinema-1294496__340.png";
       },
-      getBookShortDescription(book) {
+      getShortDescription(book) {
         return book.shortDescription.slice(0, 100).concat("...");
       },
     },
